@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- ✏️ 수정 1: 브라우저 탭에 표시되는 제목 -->
-<title> 강다연 | 포트폴리오</title>
-<meta name="description" content="개인 소개 및 포트폴리오 홈페이지">
+<title>강다연 | Da Yeon Kang</title>
+<meta name="description" content="강다연 - 연세대학교 건설환경공학과 석사과정, 스마트인프라연구실">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
   :root {
@@ -25,7 +24,7 @@
     color: var(--text);
     line-height: 1.7;
   }
-  .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
 
   /* 상단 내비게이션 */
   nav {
@@ -39,16 +38,21 @@
     height: 60px;
   }
   nav .logo { font-weight: 700; font-size: 1.05rem; }
-  nav ul { display: flex; gap: 24px; list-style: none; }
+  nav ul { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; }
   nav a { text-decoration: none; color: var(--muted); font-size: 0.95rem; transition: color 0.2s; }
   nav a:hover { color: var(--accent); }
 
   /* 히어로 */
-  header { padding: 96px 0 72px; }
-  header .greeting { color: var(--accent); font-weight: 600; margin-bottom: 8px; }
-  header h1 { font-size: 2.6rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 16px; }
-  header p.tagline { font-size: 1.15rem; color: var(--muted); max-width: 560px; }
-  .btn-row { margin-top: 32px; display: flex; gap: 12px; flex-wrap: wrap; }
+  header { padding: 72px 0 64px; }
+  .hero {
+    display: flex; align-items: center; gap: 48px;
+  }
+  .hero-text { flex: 1; min-width: 0; }
+  .hero-text .greeting { color: var(--accent); font-weight: 600; margin-bottom: 8px; }
+  .hero-text h1 { font-size: 2.4rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .hero-text .en-name { color: var(--muted); font-weight: 500; margin-bottom: 16px; }
+  .hero-text p.tagline { font-size: 1.05rem; color: var(--muted); }
+  .btn-row { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
   .btn {
     display: inline-block; padding: 12px 24px; border-radius: 10px;
     text-decoration: none; font-weight: 600; font-size: 0.95rem;
@@ -59,8 +63,60 @@
   .btn-ghost { border: 1px solid var(--border); color: var(--text); background: var(--card); }
   .btn-ghost:hover { background: var(--accent-soft); }
 
+  /* 프로필 사진 캐러셀 (인스타그램식 스와이프) */
+  .carousel {
+    position: relative;
+    width: 320px; flex-shrink: 0;
+  }
+  .carousel .track {
+    display: flex;
+    width: 320px; height: 380px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    border-radius: 20px;
+    scrollbar-width: none;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.10);
+  }
+  .carousel .track::-webkit-scrollbar { display: none; }
+  .carousel .slide {
+    width: 320px; height: 380px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    object-fit: cover;
+  }
+  .carousel .slide-missing {
+    width: 320px; height: 380px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: var(--accent-soft); color: var(--accent);
+    font-weight: 600; font-size: 0.9rem; gap: 6px; text-align: center; padding: 16px;
+  }
+  .carousel .arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 34px; height: 34px; border-radius: 50%;
+    border: none; cursor: pointer;
+    background: rgba(255,255,255,0.9); color: var(--text);
+    font-size: 1.1rem; font-weight: 700; line-height: 1;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .carousel .arrow:hover { background: #fff; }
+  .carousel .arrow.prev { left: 10px; }
+  .carousel .arrow.next { right: 10px; }
+  .carousel .dots {
+    display: flex; justify-content: center; gap: 8px; margin-top: 14px;
+  }
+  .carousel .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--border); transition: background 0.2s, transform 0.2s;
+    cursor: pointer; border: none; padding: 0;
+  }
+  .carousel .dot.active { background: var(--accent); transform: scale(1.25); }
+
   /* 섹션 공통 */
-  section { padding: 56px 0; }
+  section { padding: 52px 0; }
   section h2 {
     font-size: 1.5rem; font-weight: 700; margin-bottom: 28px;
     display: flex; align-items: center; gap: 10px;
@@ -69,12 +125,39 @@
     content: ""; width: 6px; height: 24px; border-radius: 3px; background: var(--accent);
   }
 
-  /* 소개 */
-  .about-card {
+  .card {
     background: var(--card); border: 1px solid var(--border);
     border-radius: 16px; padding: 32px;
   }
-  .about-card p + p { margin-top: 12px; }
+  .card p + p { margin-top: 12px; }
+
+  /* 학력 타임라인 */
+  .timeline { list-style: none; }
+  .timeline li {
+    position: relative; padding: 0 0 28px 28px;
+    border-left: 2px solid var(--border);
+  }
+  .timeline li:last-child { padding-bottom: 0; }
+  .timeline li::before {
+    content: ""; position: absolute; left: -7px; top: 6px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--accent); border: 3px solid var(--bg);
+  }
+  .timeline .period { font-size: 0.85rem; color: var(--accent); font-weight: 600; }
+  .timeline h3 { font-size: 1.05rem; margin: 2px 0; }
+  .timeline p { color: var(--muted); font-size: 0.95rem; }
+
+  /* 연구 업데이트 */
+  .research-list { display: flex; flex-direction: column; gap: 16px; }
+  .research-item {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 24px 28px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .research-item:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+  .research-item .date { font-size: 0.85rem; color: var(--accent); font-weight: 600; }
+  .research-item h3 { font-size: 1.08rem; margin: 4px 0 6px; }
+  .research-item p { color: var(--muted); font-size: 0.95rem; }
 
   /* 기술 */
   .skills { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -83,18 +166,15 @@
     padding: 8px 16px; border-radius: 999px; font-size: 0.9rem; font-weight: 600;
   }
 
-  /* 프로젝트 */
-  .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-  .project {
+  /* 수상 */
+  .awards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .award {
     background: var(--card); border: 1px solid var(--border);
-    border-radius: 16px; padding: 28px;
-    transition: transform 0.2s, box-shadow 0.2s;
+    border-radius: 16px; padding: 26px;
   }
-  .project:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
-  .project h3 { font-size: 1.1rem; margin-bottom: 8px; }
-  .project p { color: var(--muted); font-size: 0.95rem; margin-bottom: 14px; }
-  .project a { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
-  .project a:hover { text-decoration: underline; }
+  .award .date { font-size: 0.85rem; color: var(--accent); font-weight: 600; }
+  .award h3 { font-size: 1.05rem; margin: 4px 0 6px; }
+  .award p { color: var(--muted); font-size: 0.92rem; }
 
   /* 연락처 */
   .contact-card {
@@ -108,9 +188,11 @@
     padding: 32px 0; text-align: center; color: var(--muted); font-size: 0.85rem;
   }
 
-  @media (max-width: 640px) {
-    header h1 { font-size: 2rem; }
-    nav ul { gap: 16px; }
+  @media (max-width: 720px) {
+    .hero { flex-direction: column-reverse; gap: 36px; }
+    .hero-text h1 { font-size: 2rem; }
+    header { padding: 48px 0 48px; }
+    nav ul { gap: 14px; }
   }
 </style>
 </head>
@@ -118,12 +200,12 @@
 
 <nav>
   <div class="container">
-    <!-- ✏️ 수정 2: 로고 자리에 표시할 이름 -->
-    <div class="logo">Choi</div>
+    <div class="logo">Da Yeon Kang</div>
     <ul>
       <li><a href="#about">소개</a></li>
-      <li><a href="#skills">기술</a></li>
-      <li><a href="#projects">프로젝트</a></li>
+      <li><a href="#education">학력</a></li>
+      <li><a href="#research">연구</a></li>
+      <li><a href="#awards">수상</a></li>
       <li><a href="#contact">연락처</a></li>
     </ul>
   </div>
@@ -131,16 +213,35 @@
 
 <header>
   <div class="container">
-    <p class="greeting">안녕하세요 👋</p>
-    <!-- ✏️ 수정 3: 이름과 한 줄 소개 -->
-    <h1>강다연입니다</h1>
-    <p class="tagline">
-      여기에 자신을 소개하는 한두 문장을 적어주세요.
-      어떤 일을 하는지, 무엇에 관심이 있는지 간단히 쓰면 좋습니다.
-    </p>
-    <div class="btn-row">
-      <a class="btn btn-primary" href="#projects">프로젝트 보기</a>
-      <a class="btn btn-ghost" href="#contact">연락하기</a>
+    <div class="hero">
+      <div class="hero-text">
+        <p class="greeting">안녕하세요 👋</p>
+        <h1>강다연입니다</h1>
+        <p class="en-name">Da Yeon Kang</p>
+        <p class="tagline">
+          연세대학교 건설환경공학과 석사과정으로,
+          스마트인프라연구실(지도교수 김홍조)에서
+          스마트 기술과 데이터로 건설·인프라 문제를 해결하는 연구를 하고 있습니다.
+        </p>
+        <div class="btn-row">
+          <!-- CV 파일(CV_DaYeonKang.pdf)을 index.html과 같은 폴더에 올려야 작동합니다 -->
+          <a class="btn btn-primary" href="CV_DaYeonKang.pdf" target="_blank">CV 다운로드</a>
+          <a class="btn btn-ghost" href="#contact">연락하기</a>
+        </div>
+      </div>
+
+      <!-- 프로필 사진 캐러셀. profile1.jpg, profile2.jpg, profile3.jpg 파일을
+           index.html과 같은 폴더에 넣어주세요. -->
+      <div class="carousel">
+        <div class="track" id="track">
+          <img class="slide" src="profile1.jpg" alt="프로필 사진 1">
+          <img class="slide" src="profile2.jpg" alt="프로필 사진 2">
+          <img class="slide" src="profile3.jpg" alt="프로필 사진 3">
+        </div>
+        <button class="arrow prev" id="prevBtn" aria-label="이전 사진">‹</button>
+        <button class="arrow next" id="nextBtn" aria-label="다음 사진">›</button>
+        <div class="dots" id="dots"></div>
+      </div>
     </div>
   </div>
 </header>
@@ -148,10 +249,59 @@
 <section id="about">
   <div class="container">
     <h2>소개</h2>
-    <div class="about-card">
-      <!-- ✏️ 수정 4: 자기소개 문단 -->
-      <p>이 부분에 자기소개를 자유롭게 작성하세요. 경력, 학력, 관심 분야 등을 적으면 됩니다.</p>
-      <p>두 번째 문단도 추가할 수 있습니다. 필요 없으면 이 줄을 지워주세요.</p>
+    <div class="card">
+      <p>
+        스마트 기술과 데이터 분석에 관심이 많은 건설환경공학 연구자입니다.
+        긍정적인 자세와 소통 능력을 바탕으로 다양한 팀과 협업하며 실질적인 문제를
+        해결하는 것을 좋아합니다.
+      </p>
+      <p>
+        현재 연세대학교 스마트인프라연구실에서 석사과정 연구원으로 재학 중이며,
+        기술을 통해 도시와 인프라가 마주한 문제에 기여하는 연구를 목표로 하고 있습니다.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="container">
+    <h2>학력</h2>
+    <ul class="timeline">
+      <li>
+        <span class="period">2026.03 – 현재</span>
+        <h3>연세대학교 대학원 건설환경공학과 석사과정</h3>
+        <p>스마트인프라연구실 (지도교수 김홍조)</p>
+      </li>
+      <li>
+        <span class="period">2019.03 – 2026.02</span>
+        <h3>연세대학교 건설환경공학과 학사</h3>
+        <p>Bachelor of Science in Civil and Environmental Engineering</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section id="research">
+  <div class="container">
+    <h2>연구</h2>
+    <div class="research-list">
+      <!-- ✏️ 새 연구 소식을 올리려면 아래 research-item 블록을 복사해서
+           맨 위에 붙여넣고 내용을 수정하세요. -->
+      <div class="research-item">
+        <span class="date">2026.03</span>
+        <h3>스마트인프라연구실 석사과정 시작</h3>
+        <p>연세대학교 스마트인프라연구실에서 석사과정 연구를 시작했습니다. 연구 소식을 이곳에 업데이트할 예정입니다.</p>
+      </div>
+      <div class="research-item">
+        <span class="date">2023.12</span>
+        <h3>BIM 기반 실시간 토공량 측정 관리 모델 (RTMM_3D)</h3>
+        <p>도심지 굴착 붕괴 사고 예방을 위한 BIM 기반 실시간 토공량 측정 관리 모델을 연구했습니다. LH 국토개발기술대전 및 공학산업 경진대회에서 우수상을 수상했습니다.</p>
+      </div>
+      <div class="research-item">
+        <span class="date">2021.04 – 2021.08</span>
+        <h3>컴퓨터 비전 기반 건설 근로자 안전 모니터링</h3>
+        <p>스마트인프라연구실 학부 인턴으로 컴퓨터 비전을 활용한 건설 근로자 안전 향상 프로젝트에 참여해 데이터 전처리와 분석을 담당했습니다. 도로 모니터링 및 유지관리 전략 연구에도 참여했습니다.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -160,34 +310,29 @@
   <div class="container">
     <h2>기술</h2>
     <div class="skills">
-      <!-- ✏️ 수정 5: 보유 기술을 항목별로 나열 (추가/삭제 자유) -->
-      <span class="skill">기술 1</span>
-      <span class="skill">기술 2</span>
-      <span class="skill">기술 3</span>
-      <span class="skill">기술 4</span>
+      <span class="skill">Python · 데이터 분석</span>
+      <span class="skill">컴퓨터 비전</span>
+      <span class="skill">BIM (Revit, Dynamo)</span>
+      <span class="skill">3D 모델링</span>
+      <span class="skill">MS Office · 한글</span>
+      <span class="skill">영어 (OPIc IH)</span>
     </div>
   </div>
 </section>
 
-<section id="projects">
+<section id="awards">
   <div class="container">
-    <h2>프로젝트</h2>
-    <div class="projects">
-      <!-- ✏️ 수정 6: 프로젝트 카드 (블록을 복사해서 추가 가능) -->
-      <div class="project">
-        <h3>프로젝트 이름 1</h3>
-        <p>프로젝트에 대한 간단한 설명을 적어주세요. 어떤 문제를 해결했는지 쓰면 좋습니다.</p>
-        <a href="#">자세히 보기 →</a>
+    <h2>수상</h2>
+    <div class="awards">
+      <div class="award">
+        <span class="date">2023.12</span>
+        <h3>LH 국토개발기술대전 우수상</h3>
+        <p>BIM 기반 실시간 토공량 측정 관리 모델 개발</p>
       </div>
-      <div class="project">
-        <h3>프로젝트 이름 2</h3>
-        <p>프로젝트에 대한 간단한 설명을 적어주세요.</p>
-        <a href="#">자세히 보기 →</a>
-      </div>
-      <div class="project">
-        <h3>프로젝트 이름 3</h3>
-        <p>프로젝트에 대한 간단한 설명을 적어주세요.</p>
-        <a href="#">자세히 보기 →</a>
+      <div class="award">
+        <span class="date">2023.09</span>
+        <h3>공학산업 경진대회 우수상</h3>
+        <p>도심지 굴착 붕괴 사고 해결을 위한 RTMM_3D 연구</p>
       </div>
     </div>
   </div>
@@ -197,17 +342,59 @@
   <div class="container">
     <h2>연락처</h2>
     <div class="contact-card">
-      <p>함께 일하고 싶거나 궁금한 점이 있다면 편하게 연락 주세요.</p>
-      <!-- ✏️ 수정 7: 이메일 주소 -->
+      <p>연구 협업이나 궁금한 점이 있다면 편하게 연락 주세요.</p>
       <a class="btn btn-primary" href="mailto:dayeonk@yonsei.ac.kr">dayeonk@yonsei.ac.kr</a>
     </div>
   </div>
 </section>
 
 <footer>
-  <!-- ✏️ 수정 8: 하단 문구 -->
-  <p>© 2026 Kang. All rights reserved.</p>
+  <p>© 2026 Da Yeon Kang. All rights reserved.</p>
 </footer>
+
+<script>
+(function () {
+  var track = document.getElementById('track');
+  var dotsWrap = document.getElementById('dots');
+  var slides = Array.prototype.slice.call(track.children);
+
+  // 사진 파일이 없을 때 안내 박스로 대체
+  slides.forEach(function (img, i) {
+    img.addEventListener('error', function () {
+      var ph = document.createElement('div');
+      ph.className = 'slide-missing';
+      ph.innerHTML = '📷<br>profile' + (i + 1) + '.jpg 파일을<br>같은 폴더에 넣어주세요';
+      track.replaceChild(ph, img);
+      slides[i] = ph;
+    });
+  });
+
+  // 점(dot) 생성
+  slides.forEach(function (_, i) {
+    var dot = document.createElement('button');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', (i + 1) + '번 사진으로 이동');
+    dot.addEventListener('click', function () { goTo(i); });
+    dotsWrap.appendChild(dot);
+  });
+  var dots = Array.prototype.slice.call(dotsWrap.children);
+
+  function current() {
+    return Math.round(track.scrollLeft / track.clientWidth);
+  }
+  function goTo(i) {
+    i = Math.max(0, Math.min(slides.length - 1, i));
+    track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
+  }
+  document.getElementById('prevBtn').addEventListener('click', function () { goTo(current() - 1); });
+  document.getElementById('nextBtn').addEventListener('click', function () { goTo(current() + 1); });
+
+  track.addEventListener('scroll', function () {
+    var i = current();
+    dots.forEach(function (d, j) { d.classList.toggle('active', j === i); });
+  }, { passive: true });
+})();
+</script>
 
 </body>
 </html>
