@@ -236,7 +236,7 @@
         <div class="track" id="track">
           <img class="slide" src="profile1.jpg" alt="프로필 사진 1">
           <img class="slide" src="profile2.jpg" alt="프로필 사진 2">
-          <img class="slide" src="profile3.jpg" alt="프로필 사진 3">
+          <img class="slide" src="profile3.png" alt="프로필 사진 3">
         </div>
         <button class="arrow prev" id="prevBtn" aria-label="이전 사진">‹</button>
         <button class="arrow next" id="nextBtn" aria-label="다음 사진">›</button>
@@ -363,7 +363,7 @@
     img.addEventListener('error', function () {
       var ph = document.createElement('div');
       ph.className = 'slide-missing';
-      ph.innerHTML = '📷<br>profile' + (i + 1) + '.jpg 파일을<br>같은 폴더에 넣어주세요';
+      ph.innerHTML = '📷<br>' + img.getAttribute('src') + ' 파일을<br>같은 폴더에 넣어주세요';
       track.replaceChild(ph, img);
       slides[i] = ph;
     });
