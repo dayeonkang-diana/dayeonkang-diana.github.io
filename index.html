@@ -3,236 +3,527 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>강다연 | Dayeon Kang</title>
-<meta name="description" content="강다연 - 연세대학교 건설환경공학과 석사과정, 스마트인프라연구실">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<title>강다연 · Dayeon Kang</title>
+<meta name="description" content="강다연 - 연세대학교 건설환경공학과 석사과정, 스마트인프라연구실. 해석 가능한 전국 하천 수위 예측 연구.">
+
+<!-- 링크 공유 미리보기 (Open Graph) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="강다연 · Dayeon Kang">
+<meta property="og:description" content="연세대학교 건설환경공학과 석사과정. 해석 가능한 전국 하천 수위 예측을 연구합니다.">
+<meta property="og:url" content="https://dayeonkang-diana.github.io/">
+<meta property="og:image" content="https://dayeonkang-diana.github.io/profile1.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- 파비콘: 파란 물결 -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%23ffffff'/%3E%3Cpath d='M4 14 Q8 9 12 14 T20 14 T28 14' fill='none' stroke='%233E8FE0' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M4 21 Q8 16 12 21 T20 21 T28 21' fill='none' stroke='%233E8FE0' stroke-width='2.4' stroke-linecap='round' opacity='0.5'/%3E%3C/svg%3E">
+
+<!-- Pretendard Variable: 가변 굵기(320~540)를 쓰기 위해 variable 버전 사용 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- 테마·언어 초기화 (화면 깜빡임 방지) -->
+<script>
+(function () {
+  var t = localStorage.getItem('theme');
+  if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', t);
+  var l = localStorage.getItem('lang') || 'ko';
+  document.documentElement.setAttribute('data-lang', l);
+  if (l === 'en') document.documentElement.lang = 'en';
+})();
+</script>
+
 <style>
   :root {
-    --bg: #fafafa;
-    --card: #ffffff;
-    --text: #1a1a1a;
-    --muted: #666666;
-    --accent: #2563eb;
-    --accent-soft: #eff6ff;
-    --border: #e5e7eb;
+    /* 하이브리드: figma의 모노크롬 뼈대 + clay의 크림 캔버스 */
+    --canvas: #ffffff;
+    --ink: #0d0d0d;
+    --inverse-canvas: #0d0d0d;
+    --inverse-ink: #ffffff;
+    --surface-soft: #f5f5f5;
+    --surface-card: #ececec;
+    --hairline: #e6e6e6;
+    --wave-blue: #3E8FE0;
+
+    /* 파스텔 컬러 블록 (figma) */
+    --block-lime: #d3f26a;
+    --block-lilac: #d5c3f5;
+    --block-cream: #f5eee3;
+    --block-mint: #c3ecd8;
+    --block-pink: #fbc8e4;
+    --block-navy: #23234f;
+    --block-ink: #0d0d0d;
+
+    /* 수상 카드 컬러 (clay) */
+    --ochre: #e8b94a;
+    --mint: #a4d4c5;
   }
+  [data-theme="dark"] {
+    /* 웜 다크: 크림 톤을 유지한 어두운 변형 */
+    --canvas: #0d0d0d;
+    --ink: #ffffff;
+    --inverse-canvas: #f5f5f5;
+    --inverse-ink: #0d0d0d;
+    --surface-soft: #1b1b1b;
+    --surface-card: #232323;
+    --hairline: #2b2b2b;
+    --wave-blue: #5FA8F0;
+    --ochre: #d8ab3e;
+    --mint: #8fc9b4;
+  }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.7;
+    font-family: 'Pretendard Variable', 'Pretendard', 'Inter', -apple-system, system-ui, sans-serif;
+    background: var(--canvas);
+    color: var(--ink);
+    font-size: 18px;
+    font-weight: 340;
+    line-height: 1.45;
+    letter-spacing: -0.015em;
+    transition: background 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
   }
-  .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+  .mono {
+    font-family: 'JetBrains Mono', 'Pretendard Variable', 'Pretendard', monospace;
+    text-transform: uppercase; letter-spacing: 0.045em; font-weight: 400;
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
 
-  /* 상단 내비게이션 */
+  /* 언어 토글 */
+  [data-lang="en"] .ko { display: none !important; }
+  [data-lang="ko"] .en { display: none !important; }
+
+  /* ── 필 버튼 ─────────────────────────── */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 50px; text-decoration: none; cursor: pointer;
+    font-size: 1rem; font-weight: 480; letter-spacing: -0.005em;
+    padding: 10px 24px; border: none;
+    font-family: inherit;
+    transition: transform 0.12s ease;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary { background: var(--ink); color: var(--canvas); }
+  .btn-soft { background: var(--surface-card); color: var(--ink); }
+  .btn-on-block { background: #0d0d0d; color: #ffffff; }
+
+  /* ── 내비게이션 ─────────────────────────── */
   nav {
     position: sticky; top: 0; z-index: 10;
-    background: rgba(250,250,250,0.9);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--border);
+    background: color-mix(in srgb, var(--canvas) 92%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: background 0.3s ease;
+    border-bottom: 1px solid var(--hairline);
   }
   nav .container {
     display: flex; justify-content: space-between; align-items: center;
-    height: 60px;
+    height: 60px; gap: 16px;
   }
-  nav .logo { font-weight: 700; font-size: 1.05rem; }
+
+  /* 물결 밑줄 로고: 이름과 시간 아래로 파도가 흐름 */
+  nav .brand { display: inline-block; text-decoration: none; }
+  .brand-line { display: flex; align-items: flex-end; gap: 16px; white-space: nowrap; }
+  .brand-name {
+    font-weight: 540; font-size: 1.02rem; letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  /* 시계 배: 파도 위에 떠서 흔들림 */
+  .boat {
+    display: inline-flex; flex-direction: column; align-items: center;
+    margin-bottom: -3px;
+    animation: boat-sail 7.5s ease-in-out infinite;
+    transform-origin: 50% 100%;
+  }
+  .boat-riders {
+    font-size: 0.62rem; color: var(--ink); opacity: 0.75;
+    display: inline-flex; gap: 6px; margin-bottom: 1px;
+  }
+  .boat-hull { display: block; }
+  /* 배가 좌우로 항해하며 흔들림 */
+  @keyframes boat-sail {
+    0%   { transform: translateX(0) rotate(-2.4deg); }
+    25%  { transform: translateX(13px) rotate(2.4deg) translateY(-1.5px); }
+    50%  { transform: translateX(26px) rotate(-2.4deg); }
+    75%  { transform: translateX(13px) rotate(2.4deg) translateY(-1.5px); }
+    100% { transform: translateX(0) rotate(-2.4deg); }
+  }
+  .wave-clip {
+    display: block; height: 7px; overflow: hidden; margin-top: 2px;
+  }
+  .wave-clip svg { display: block; animation: waveflow 2.6s linear infinite; }
+  @keyframes waveflow { to { transform: translateX(-24px); } }
+
+  nav .menu { display: flex; align-items: center; gap: 20px; }
   nav ul { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; }
-  nav a { text-decoration: none; color: var(--muted); font-size: 0.95rem; transition: color 0.2s; }
-  nav a:hover { color: var(--accent); }
+  nav ul a {
+    text-decoration: none; color: var(--ink);
+    font-size: 0.88rem; font-weight: 340;
+    transition: opacity 0.2s;
+  }
+  nav ul a:hover { opacity: 0.6; }
+  .controls { display: flex; gap: 8px; align-items: center; }
+  .ctrl-pill {
+    height: 36px; min-width: 44px; padding: 0 14px;
+    border: none; border-radius: 50px;
+    background: var(--surface-card); color: var(--ink);
+    font-family: inherit; font-size: 0.8rem; font-weight: 480;
+    cursor: pointer; transition: opacity 0.2s;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .ctrl-pill:hover { opacity: 0.7; }
 
-  /* 히어로 */
-  header { padding: 72px 0 64px; }
-  .hero {
-    display: flex; align-items: center; gap: 48px;
+  /* ── 히어로 ─────────────────────────── */
+  header { padding: 96px 0; }
+  .hero { display: flex; align-items: center; gap: 72px; }
+  .hero-text { flex: 1.5; min-width: 0; }
+  .eyebrow {
+    font-size: 0.98rem; font-weight: 560; color: var(--ink);
+    letter-spacing: 0.1em;
+    margin-bottom: 24px; display: block;
   }
-  .hero-text { flex: 1; min-width: 0; }
-  .hero-text .greeting { color: var(--accent); font-weight: 600; margin-bottom: 8px; }
-  .hero-text h1 { font-size: 2.4rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px; }
-  .hero-text .en-name { color: var(--muted); font-weight: 500; margin-bottom: 16px; }
-  .hero-text p.tagline { font-size: 1.05rem; color: var(--muted); }
-  .btn-row { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
-  .btn {
-    display: inline-block; padding: 12px 24px; border-radius: 10px;
-    text-decoration: none; font-weight: 600; font-size: 0.95rem;
-    transition: opacity 0.2s, background 0.2s;
+  .hero-text h1 {
+    font-size: clamp(3rem, 7.5vw, 5.4rem);
+    font-weight: 340; letter-spacing: -0.026em;
+    line-height: 1.0; margin-bottom: 28px;
   }
-  .btn-primary { background: var(--accent); color: #fff; }
-  .btn-primary:hover { opacity: 0.85; }
-  .btn-ghost { border: 1px solid var(--border); color: var(--text); background: var(--card); }
-  .btn-ghost:hover { background: var(--accent-soft); }
+  .hero-text h1 .highlight { color: var(--wave-blue); }
+  .hero-text p.tagline {
+    font-size: 1.25rem; font-weight: 330; letter-spacing: -0.008em;
+    line-height: 1.4; max-width: 44ch;
+  }
+  .hero-text p.tagline strong { font-weight: 540; }
+  .btn-row { margin-top: 40px; display: flex; gap: 12px; flex-wrap: wrap; }
 
-  /* 프로필 사진 캐러셀 (인스타그램식 스와이프) */
-  .carousel {
-    position: relative;
-    width: 320px; flex-shrink: 0;
+  /* SNS 아이콘 (GitHub, LinkedIn, 메일) */
+  .social-row { margin-top: 18px; display: flex; gap: 10px; }
+  .social-btn {
+    width: 40px; height: 40px; border-radius: 9999px;
+    background: var(--surface-card); color: var(--ink);
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: transform 0.15s ease, opacity 0.2s;
   }
+  .social-btn:hover { transform: translateY(-2px); opacity: 0.8; }
+  .social-btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+  /* ── 프로필 사진 캐러셀 ─────────────────────────── */
+  .carousel { position: relative; width: 340px; flex-shrink: 0; }
   .carousel .track {
     display: flex;
-    width: 320px; height: 380px;
+    width: 340px; height: 420px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    border-radius: 20px;
+    border-radius: 8px;
     scrollbar-width: none;
-    box-shadow: 0 12px 32px rgba(0,0,0,0.10);
   }
   .carousel .track::-webkit-scrollbar { display: none; }
   .carousel .slide {
-    width: 320px; height: 380px;
-    flex-shrink: 0;
-    scroll-snap-align: start;
-    object-fit: cover;
+    width: 340px; height: 420px;
+    flex-shrink: 0; scroll-snap-align: start; object-fit: cover;
   }
   .carousel .slide-missing {
-    width: 320px; height: 380px;
-    flex-shrink: 0;
-    scroll-snap-align: start;
+    width: 340px; height: 420px;
+    flex-shrink: 0; scroll-snap-align: start;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    background: var(--accent-soft); color: var(--accent);
-    font-weight: 600; font-size: 0.9rem; gap: 6px; text-align: center; padding: 16px;
+    background: var(--surface-card); color: var(--ink);
+    font-weight: 480; font-size: 0.88rem; gap: 6px; text-align: center; padding: 16px;
   }
   .carousel .arrow {
     position: absolute; top: 50%; transform: translateY(-50%);
-    width: 34px; height: 34px; border-radius: 50%;
+    width: 40px; height: 40px; border-radius: 9999px;
     border: none; cursor: pointer;
-    background: rgba(255,255,255,0.9); color: var(--text);
-    font-size: 1.1rem; font-weight: 700; line-height: 1;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    background: var(--canvas); color: var(--ink);
+    font-size: 1.05rem; font-weight: 480; line-height: 1;
     display: flex; align-items: center; justify-content: center;
-    transition: background 0.2s;
+    transition: opacity 0.2s; opacity: 0;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
   }
-  .carousel .arrow:hover { background: #fff; }
-  .carousel .arrow.prev { left: 10px; }
-  .carousel .arrow.next { right: 10px; }
-  .carousel .dots {
-    display: flex; justify-content: center; gap: 8px; margin-top: 14px;
-  }
+  .carousel:hover .arrow { opacity: 1; }
+  .carousel .arrow.prev { left: 12px; }
+  .carousel .arrow.next { right: 12px; }
+  .carousel .dots { display: flex; justify-content: center; gap: 8px; margin-top: 18px; }
   .carousel .dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--border); transition: background 0.2s, transform 0.2s;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--hairline); transition: background 0.2s;
     cursor: pointer; border: none; padding: 0;
   }
-  .carousel .dot.active { background: var(--accent); transform: scale(1.25); }
+  .carousel .dot.active { background: var(--ink); }
 
-  /* 섹션 공통 */
-  section { padding: 52px 0; }
+  /* ── 섹션 공통 ─────────────────────────── */
+  section { padding-top: 96px; }
+  section:last-of-type { padding-bottom: 96px; }
   section h2 {
-    font-size: 1.5rem; font-weight: 700; margin-bottom: 28px;
-    display: flex; align-items: center; gap: 10px;
+    font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+    font-weight: 340; letter-spacing: -0.02em;
+    line-height: 1.1; margin-bottom: 40px;
   }
-  section h2::before {
-    content: ""; width: 6px; height: 24px; border-radius: 3px; background: var(--accent);
-  }
+  .prose { max-width: 60ch; }
+  .prose p { font-size: 1.12rem; font-weight: 330; line-height: 1.5; }
+  .prose p + p { margin-top: 16px; }
+  .prose strong { font-weight: 540; }
 
-  .card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 16px; padding: 32px;
+  /* ── 컬러 블록 섹션 ─────────────────────────── */
+  .color-block {
+    border-radius: 24px; padding: 48px;
+    color: var(--block-ink);
   }
-  .card p + p { margin-top: 12px; }
+  .color-block .eyebrow { color: inherit; opacity: 0.75; }
+  .color-block h2 { color: inherit; }
 
-  /* 학력 타임라인 */
-  .timeline { list-style: none; }
-  .timeline li {
-    position: relative; padding: 0 0 28px 28px;
-    border-left: 2px solid var(--border);
+  /* ── 연구 관심사: 파스텔 스티키 노트 그리드 ─────────────── */
+  .interests { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .interest {
+    border-radius: 24px; padding: 40px;
+    color: var(--block-ink);
+    transition: transform 0.25s ease;
   }
-  .timeline li:last-child { padding-bottom: 0; }
-  .timeline li::before {
-    content: ""; position: absolute; left: -7px; top: 6px;
-    width: 12px; height: 12px; border-radius: 50%;
-    background: var(--accent); border: 3px solid var(--bg);
+  .interest:nth-child(1) { background: var(--block-lime);  transform: rotate(-0.6deg); }
+  .interest:nth-child(2) { background: var(--block-lilac); transform: rotate(0.5deg); }
+  .interest:nth-child(3) { background: var(--block-mint);  transform: rotate(0.4deg); }
+  .interest:nth-child(4) { background: var(--block-pink);  transform: rotate(-0.5deg); }
+  .interest:hover { transform: rotate(0deg) translateY(-4px); }
+  .interest .num {
+    font-size: 0.8rem; display: block; margin-bottom: 44px; opacity: 0.75;
   }
-  .timeline .period { font-size: 0.85rem; color: var(--accent); font-weight: 600; }
-  .timeline h3 { font-size: 1.05rem; margin: 2px 0; }
-  .timeline p { color: var(--muted); font-size: 0.95rem; }
+  .interest h3 {
+    font-size: 1.45rem; font-weight: 540; letter-spacing: -0.014em;
+    line-height: 1.25; margin-bottom: 12px;
+  }
+  .interest p { font-size: 0.98rem; font-weight: 340; line-height: 1.5; }
 
-  /* 연구 업데이트 */
-  .research-list { display: flex; flex-direction: column; gap: 16px; }
+  /* ── 학력 ─────────────────────────── */
+  .edu-list { border-top: 1px solid var(--hairline); }
+  .edu-row {
+    display: grid; grid-template-columns: 220px 1fr; gap: 24px;
+    padding: 28px 4px; border-bottom: 1px solid var(--hairline);
+  }
+  .edu-row .period { font-size: 0.85rem; padding-top: 4px; }
+  .edu-row h3 { font-size: 1.2rem; font-weight: 540; letter-spacing: -0.012em; margin-bottom: 4px; }
+  .edu-row p { font-size: 0.95rem; font-weight: 330; }
+
+  /* ── 연구 업데이트: 네이비 컬러 블록 ─────────────────────── */
+  .block-navy { background: var(--block-navy); color: #ffffff; }
+  .block-navy .eyebrow { color: #ffffff; opacity: 0.65; }
+  .block-navy h2 { color: #ffffff; }
   .research-item {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 16px; padding: 24px 28px;
-    transition: transform 0.2s, box-shadow 0.2s;
+    display: grid; grid-template-columns: 200px 1fr; gap: 24px;
+    padding: 28px 0; border-top: 1px solid rgba(255,255,255,0.18);
   }
-  .research-item:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
-  .research-item .date { font-size: 0.85rem; color: var(--accent); font-weight: 600; }
-  .research-item h3 { font-size: 1.08rem; margin: 4px 0 6px; }
-  .research-item p { color: var(--muted); font-size: 0.95rem; }
+  .research-item .date { font-size: 0.82rem; opacity: 0.7; padding-top: 5px; }
+  .research-item h3 { font-size: 1.25rem; font-weight: 540; letter-spacing: -0.012em; margin-bottom: 8px; line-height: 1.3; }
+  .research-item p { font-size: 0.96rem; font-weight: 340; line-height: 1.5; opacity: 0.9; }
 
-  /* 기술 */
-  .skills { display: flex; flex-wrap: wrap; gap: 10px; }
+  /* ── 논문 ─────────────────────────── */
+  .pub-placeholder {
+    border: 1px solid var(--hairline); border-radius: 24px;
+    padding: 48px; text-align: center;
+    background: var(--surface-soft);
+  }
+  .pub-placeholder .tag {
+    display: inline-block; font-size: 0.7rem;
+    background: var(--block-lilac); color: #0d0d0d;
+    border-radius: 50px; padding: 5px 14px; margin-bottom: 20px;
+  }
+  .pub-placeholder p { font-size: 1.05rem; font-weight: 330; max-width: 48ch; margin: 0 auto; }
+
+  /* ── 기술 ─────────────────────────── */
+  .skills-tags { display: flex; flex-wrap: wrap; gap: 12px; }
   .skill {
-    background: var(--accent-soft); color: var(--accent);
-    padding: 8px 16px; border-radius: 999px; font-size: 0.9rem; font-weight: 600;
+    background: var(--surface-card); color: var(--ink);
+    padding: 10px 22px; border-radius: 50px;
+    font-size: 0.92rem; font-weight: 340;
   }
 
-  /* 수상 */
-  .awards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  /* ── 수상: 크림 블록 안의 화이트 카드 (figma 색감) ─────── */
+  .block-cream { background: var(--block-cream); }
+  .awards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 8px; }
   .award {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 16px; padding: 26px;
+    background: #ffffff; color: #0d0d0d;
+    border-radius: 8px; padding: 32px;
   }
-  .award .date { font-size: 0.85rem; color: var(--accent); font-weight: 600; }
-  .prize { color: #f59e0b; }
-  .award h3 { font-size: 1.05rem; margin: 4px 0 6px; }
-  .award p { color: var(--muted); font-size: 0.92rem; }
-
-  /* 연락처 */
-  .contact-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 16px; padding: 32px; text-align: center;
+  .award .date { font-size: 0.8rem; opacity: 0.65; display: block; margin-bottom: 14px; }
+  .award h3 { font-size: 1.15rem; font-weight: 540; letter-spacing: -0.01em; margin-bottom: 8px; line-height: 1.35; color: #0d0d0d; }
+  .prize {
+    display: inline-block; font-size: 0.72rem; font-weight: 480;
+    background: var(--block-lime); color: #0d0d0d;
+    border-radius: 50px; padding: 4px 12px; margin-left: 8px; vertical-align: 2px;
   }
-  .contact-card p { color: var(--muted); margin-bottom: 20px; }
+  .award p { font-size: 0.92rem; font-weight: 340; line-height: 1.5; }
 
+  /* ── 연락처: 라임 블록 ─────────────────────────── */
+  .block-lime { background: var(--block-lime); }
+  .contact-inner { text-align: center; padding: 24px 0; }
+  .contact-inner h2 { margin-bottom: 16px; }
+  .contact-inner p { font-size: 1.1rem; font-weight: 340; margin-bottom: 36px; }
+
+  /* ── 푸터: clay의 산 능선 + figma의 워드마크 ─────────────── */
   footer {
-    border-top: 1px solid var(--border);
-    padding: 32px 0; text-align: center; color: var(--muted); font-size: 0.85rem;
+    background: var(--surface-soft);
+    margin-top: 96px; padding-bottom: 56px;
+  }
+  footer .mountains {
+    display: block; width: 100%; height: 60px; margin-bottom: 40px;
+  }
+  footer .mountains path { fill: var(--surface-card); }
+  footer .container {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    gap: 24px; flex-wrap: wrap;
+  }
+  footer .wordmark {
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    font-weight: 340; letter-spacing: -0.025em; line-height: 1;
+  }
+  footer .foot-right { display: flex; flex-direction: column; align-items: flex-end; gap: 14px; }
+  footer .fine { font-size: 0.68rem; opacity: 0.7; }
+
+  /* ── 날씨 연출 레이어 ─────────────────────────── */
+  #sky { position: fixed; inset: 0; pointer-events: none; z-index: 4; overflow: hidden; }
+  .sun { position: absolute; top: 92px; right: 6%; opacity: 0.95; }
+  .sun svg { display: block; animation: sun-spin 48s linear infinite; }
+  @keyframes sun-spin { to { transform: rotate(360deg); } }
+  .cloud { position: absolute; animation: drift 40s ease-in-out infinite alternate; }
+  .cloud svg ellipse { fill: var(--hairline); }
+  @keyframes drift { from { transform: translateX(-24px); } to { transform: translateX(48px); } }
+  .drop {
+    position: absolute; top: -14%;
+    width: 1.5px; height: 13px; border-radius: 1px;
+    background: var(--wave-blue); opacity: 0.3;
+    animation: fall linear infinite;
+  }
+  @keyframes fall { to { transform: translateY(118vh); } }
+  .flake {
+    position: absolute; top: -8%;
+    width: 5px; height: 5px; border-radius: 50%;
+    background: #b6c2cf; opacity: 0.75;
+    animation: snowfall linear infinite;
+  }
+  @keyframes snowfall { to { transform: translateY(112vh) translateX(34px); } }
+
+  /* ── 스크롤 등장 애니메이션 ─────────────────────────── */
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .wave-clip svg, .boat, .sun svg, .cloud { animation: none; }
+    html { scroll-behavior: auto; }
   }
 
-  @media (max-width: 720px) {
-    .hero { flex-direction: column-reverse; gap: 36px; }
-    .hero-text h1 { font-size: 2rem; }
-    header { padding: 48px 0 48px; }
-    nav ul { gap: 14px; }
+  /* ── 반응형 ─────────────────────────── */
+  @media (max-width: 620px) {
+    .boat { display: none; }
+  }
+  @media (max-width: 860px) {
+    .hero { flex-direction: column-reverse; gap: 56px; }
+    header { padding: 56px 0 72px; }
+    nav ul { display: none; }
+    .interests { grid-template-columns: 1fr; }
+    .edu-row, .research-item { grid-template-columns: 1fr; gap: 6px; }
+    .carousel .arrow { opacity: 1; }
+    section { padding-top: 72px; }
+    .color-block { border-radius: 0; margin: 0 -32px; padding: 48px 32px; }
+    .interest { transform: none !important; }
+    .btn-row .btn { flex: 1; }
+    footer .container { flex-direction: column; align-items: flex-start; }
+    footer .foot-right { align-items: flex-start; }
+  }
+  @media (max-width: 420px) {
+    .carousel, .carousel .track, .carousel .slide, .carousel .slide-missing { width: 100%; }
+    .carousel { max-width: 340px; }
   }
 </style>
 </head>
 <body>
 
+<!-- 날씨 연출 레이어: 맑으면 해, 흐리면 구름, 비·눈이 내림 -->
+<div id="sky" aria-hidden="true"></div>
+
 <nav>
   <div class="container">
-    <div class="logo">Dayeon Kang</div>
-    <ul>
-      <li><a href="#about">소개</a></li>
-      <li><a href="#education">학력</a></li>
-      <li><a href="#research">연구</a></li>
-      <li><a href="#awards">수상</a></li>
-      <li><a href="#contact">연락처</a></li>
-    </ul>
+    <a class="brand" href="#top">
+      <span class="brand-line">
+        <span class="brand-name">Dayeon Kang</span>
+        <!-- 파도 위에 떠 있는 시계 배: 서울 현재 시각과 날씨가 타고 있음 -->
+        <span class="boat">
+          <span class="boat-riders mono"><span>Seoul</span><span id="clock">--:--</span></span>
+          <svg class="boat-hull" width="70" height="12" viewBox="0 0 70 12" aria-hidden="true">
+            <path d="M0 1 L70 1 L58 8.5 Q35 12.5 12 8.5 Z" fill="var(--ink)"/>
+          </svg>
+        </span>
+      </span>
+      <span class="wave-clip" aria-hidden="true">
+        <svg width="408" height="7" viewBox="0 0 408 7">
+          <path d="M0 3.5 Q6 0.8 12 3.5 T24 3.5 T36 3.5 T48 3.5 T60 3.5 T72 3.5 T84 3.5 T96 3.5 T108 3.5 T120 3.5 T132 3.5 T144 3.5 T156 3.5 T168 3.5 T180 3.5 T192 3.5 T204 3.5 T216 3.5 T228 3.5 T240 3.5 T252 3.5 T264 3.5 T276 3.5 T288 3.5 T300 3.5 T312 3.5 T324 3.5 T336 3.5 T348 3.5 T360 3.5 T372 3.5 T384 3.5 T396 3.5 T408 3.5" fill="none" stroke="var(--wave-blue)" stroke-width="1.5"/>
+        </svg>
+      </span>
+    </a>
+    <div class="menu">
+      <ul>
+        <li><a href="#about"><span class="ko">소개</span><span class="en">About</span></a></li>
+        <li><a href="#interests"><span class="ko">관심사</span><span class="en">Interests</span></a></li>
+        <li><a href="#education"><span class="ko">학력</span><span class="en">Education</span></a></li>
+        <li><a href="#research"><span class="ko">연구</span><span class="en">Research</span></a></li>
+        <li><a href="#publications"><span class="ko">논문</span><span class="en">Publications</span></a></li>
+        <li><a href="#awards"><span class="ko">수상</span><span class="en">Awards</span></a></li>
+      </ul>
+      <div class="controls">
+        <button class="ctrl-pill" id="langBtn" aria-label="언어 전환"><span class="ko">EN</span><span class="en">한국어</span></button>
+        <button class="ctrl-pill" id="themeBtn" aria-label="테마 전환">◐</button>
+        <a class="btn btn-primary" style="height:36px; padding:0 18px; font-size:0.85rem;" href="#contact"><span class="ko">연락하기</span><span class="en">Contact</span></a>
+      </div>
+    </div>
   </div>
 </nav>
 
-<header>
+<header id="top">
   <div class="container">
     <div class="hero">
       <div class="hero-text">
-        <p class="greeting">안녕하세요 👋</p>
-        <h1>강다연입니다</h1>
-        <p class="en-name">Dayeon Kang</p>
-        <p class="tagline">
-          연세대학교 건설환경공학과 석사과정으로,
+        <span class="eyebrow mono">Dayeon Kang — M.S. Researcher, Yonsei Univ.</span>
+        <h1>
+          <span class="ko"><span class="highlight">물의 흐름</span>을,<br>데이터로 읽습니다</span>
+          <span class="en">Reading <span class="highlight">rivers</span>,<br>through data.</span>
+        </h1>
+        <p class="tagline ko">
+          연세대학교 건설환경공학과 석사과정 <strong>강다연</strong>입니다.
           스마트인프라연구실(지도교수 김홍조)에서
-          스마트 기술과 데이터로 건설·인프라 문제를 해결하는 연구를 하고 있습니다.
+          이질적인 수문 특성을 아우르는 <strong>해석 가능한
+          전국 하천 수위 예측</strong>을 연구합니다.
+        </p>
+        <p class="tagline en">
+          I'm <strong>Dayeon Kang</strong>, an M.S. student in Civil and
+          Environmental Engineering at Yonsei University. At the Smart
+          Infrastructure Lab (advisor: Prof. Hongjo Kim), I work on
+          <strong>interpretable nationwide water-level forecasting</strong>
+          across heterogeneous hydrologic regimes.
         </p>
         <div class="btn-row">
-          <!-- CV 파일(CV_DaYeonKang.pdf)을 index.html과 같은 폴더에 올려야 작동합니다 -->
-          <a class="btn btn-primary" href="CV_DaYeonKang.pdf" target="_blank">CV 다운로드</a>
-          <a class="btn btn-ghost" href="#contact">연락하기</a>
+          <!-- CV 파일(CV_DaYeonKang.pdf)을 같은 폴더에 올려야 작동합니다 -->
+          <a class="btn btn-primary" href="CV_DaYeonKang.pdf" target="_blank"><span class="ko">CV 다운로드</span><span class="en">Download CV</span></a>
+          <a class="btn btn-soft" href="#contact"><span class="ko">연락하기</span><span class="en">Get in touch</span></a>
+        </div>
+        <!-- SNS 링크 -->
+        <div class="social-row">
+          <a class="social-btn" href="https://github.com/dayeonkang-diana" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          </a>
+          <a class="social-btn" href="https://www.linkedin.com/in/dayeon-kang-459961302/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+          </a>
+          <a class="social-btn" href="mailto:dayeonk@yonsei.ac.kr" aria-label="이메일">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </a>
         </div>
       </div>
 
-      <!-- 프로필 사진 캐러셀. profile1.jpg, profile2.jpg, profile3.jpg 파일을
-           index.html과 같은 폴더에 넣어주세요. -->
+      <!-- 프로필 사진 캐러셀. profile1.jpg, profile2.jpg, profile3.png 파일을
+           같은 폴더에 넣어주세요. -->
       <div class="carousel">
         <div class="track" id="track">
           <img class="slide" src="profile1.jpg" alt="프로필 사진 1">
@@ -248,118 +539,229 @@
 </header>
 
 <section id="about">
-  <div class="container">
-    <h2>소개</h2>
-    <div class="card">
-      <p>
-        스마트 기술과 데이터 분석에 관심이 많은 건설환경공학 연구자입니다.
-        긍정적인 자세와 소통 능력을 바탕으로 다양한 팀과 협업하며 실질적인 문제를
-        해결하는 것을 좋아합니다.
+  <div class="container reveal">
+    <span class="eyebrow mono"><span class="ko">소개</span><span class="en">About</span></span>
+    <h2><span class="ko">안녕하세요</span><span class="en">Hello there</span></h2>
+    <div class="prose">
+      <p class="ko">
+        스마트 기술과 데이터 분석에 관심이 많은 <strong>건설환경공학 연구자</strong>입니다.
+        긍정적인 자세와 소통 능력을 바탕으로 다양한 팀과 협업하며
+        실질적인 문제를 해결하는 것을 좋아합니다.
       </p>
-      <p>
+      <p class="ko">
         현재 연세대학교 스마트인프라연구실에서 석사과정 연구원으로 재학 중이며,
         기술을 통해 도시와 인프라가 마주한 문제에 기여하는 연구를 목표로 하고 있습니다.
       </p>
+      <p class="en">
+        I am a <strong>civil and environmental engineering researcher</strong>
+        interested in smart technology and data analysis. I enjoy collaborating
+        with diverse teams and solving practical problems with a positive
+        attitude and strong communication.
+      </p>
+      <p class="en">
+        I am currently an M.S. researcher at the Smart Infrastructure Lab,
+        Yonsei University, aiming to contribute to the challenges facing
+        cities and infrastructure through technology.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="interests">
+  <div class="container reveal">
+    <span class="eyebrow mono"><span class="ko">연구 관심사</span><span class="en">Research Interests</span></span>
+    <h2><span class="ko">무엇을 연구하나요</span><span class="en">What I work on</span></h2>
+    <div class="interests">
+      <div class="interest">
+        <span class="num mono">01 — Forecasting</span>
+        <h3><span class="ko">수문 시계열 예측</span><span class="en">Hydrologic Time-Series Forecasting</span></h3>
+        <p class="ko">전국 하천을 대상으로 한 단기 수위 예측. 홍수 등 수재해 대응을 위한 정확하고 안정적인 예측 모델을 연구합니다.</p>
+        <p class="en">Short-term water-level forecasting for rivers nationwide, toward accurate and reliable models for flood response.</p>
+      </div>
+      <div class="interest">
+        <span class="num mono">02 — Architecture</span>
+        <h3>Mixture-of-Experts</h3>
+        <p class="ko">이질적인 수문 레짐을 하나의 모델로 다루기 위한 전문가 혼합(MoE) 구조. 지역별 특성에 맞게 분화하는 모델을 탐구합니다.</p>
+        <p class="en">Mixture-of-Experts architectures that handle heterogeneous hydrologic regimes within a single model, specializing by regional characteristics.</p>
+      </div>
+      <div class="interest">
+        <span class="num mono">03 — Explainability</span>
+        <h3><span class="ko">해석 가능한 AI</span><span class="en">Interpretable AI</span></h3>
+        <p class="ko">예측이 왜 그렇게 나왔는지 설명할 수 있는 모델. 실무자가 신뢰하고 활용할 수 있는 예측 시스템을 지향합니다.</p>
+        <p class="en">Models that can explain their predictions, toward forecasting systems practitioners can trust and act on.</p>
+      </div>
+      <div class="interest">
+        <span class="num mono">04 — Infrastructure</span>
+        <h3><span class="ko">스마트 건설 · 인프라</span><span class="en">Smart Construction &amp; Infrastructure</span></h3>
+        <p class="ko">컴퓨터 비전과 BIM을 활용한 건설 현장 안전 및 시공 관리. 학부 연구부터 이어온 관심 분야입니다.</p>
+        <p class="en">Construction safety and management with computer vision and BIM, an interest carried over from my undergraduate research.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <section id="education">
-  <div class="container">
-    <h2>학력</h2>
-    <ul class="timeline">
-      <li>
-        <span class="period">2026.03 – 현재</span>
-        <h3>연세대학교 대학원 건설환경공학과 석사과정</h3>
-        <p>스마트인프라연구실 (지도교수 김홍조)</p>
-      </li>
-      <li>
-        <span class="period">2019.03 – 2026.02</span>
-        <h3>연세대학교 건설환경공학과 학사</h3>
-        <p>Bachelor of Science in Civil and Environmental Engineering</p>
-      </li>
-    </ul>
+  <div class="container reveal">
+    <span class="eyebrow mono"><span class="ko">학력</span><span class="en">Education</span></span>
+    <h2><span class="ko">배움의 여정</span><span class="en">Academic background</span></h2>
+    <div class="edu-list">
+      <div class="edu-row">
+        <span class="period mono">2026.03 — <span class="ko">현재</span><span class="en">Present</span></span>
+        <div>
+          <h3><span class="ko">연세대학교 대학원 건설환경공학과 석사과정</span><span class="en">M.S. in Civil and Environmental Engineering, Yonsei University</span></h3>
+          <p><span class="ko">스마트인프라연구실 (지도교수 김홍조)</span><span class="en">Smart Infrastructure Lab (Advisor: Prof. Hongjo Kim)</span></p>
+        </div>
+      </div>
+      <div class="edu-row">
+        <span class="period mono">2019.03 — 2026.02</span>
+        <div>
+          <h3><span class="ko">연세대학교 건설환경공학과 학사</span><span class="en">B.S. in Civil and Environmental Engineering, Yonsei University</span></h3>
+          <p><span class="ko">Bachelor of Science in Civil and Environmental Engineering</span><span class="en">Seoul, South Korea</span></p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <section id="research">
-  <div class="container">
-    <h2>연구</h2>
-    <div class="research-list">
+  <div class="container reveal">
+    <div class="color-block block-navy">
+      <span class="eyebrow mono"><span class="ko">연구</span><span class="en">Research</span></span>
+      <h2><span class="ko">연구 소식</span><span class="en">Research updates</span></h2>
       <!-- ✏️ 새 연구 소식을 올리려면 아래 research-item 블록을 복사해서
            맨 위에 붙여넣고 내용을 수정하세요. -->
       <div class="research-item">
-        <span class="date">2026.03</span>
-        <h3>스마트인프라연구실 석사과정 시작</h3>
-        <p>연세대학교 스마트인프라연구실에서 석사과정 연구를 시작했습니다. 연구 소식을 이곳에 업데이트할 예정입니다.</p>
+        <span class="date mono">2026.03</span>
+        <div>
+          <h3><span class="ko">스마트인프라연구실 석사과정 시작</span><span class="en">Started M.S. at the Smart Infrastructure Lab</span></h3>
+          <p class="ko">연세대학교 스마트인프라연구실에서 석사과정 연구를 시작했습니다. 이질적 수문 레짐을 아우르는 해석 가능한 전국 수위 예측을 주제로 연구를 진행하고 있습니다.</p>
+          <p class="en">Began my M.S. research at Yonsei University's Smart Infrastructure Lab, working on interpretable nationwide water-level forecasting across heterogeneous hydrologic regimes.</p>
+        </div>
       </div>
       <div class="research-item">
-        <span class="date">2023.12</span>
-        <h3>BIM 기반 실시간 토공량 측정 관리 모델 (RTMM_3D)</h3>
-        <p>도심지 굴착 붕괴 사고 예방을 위한 BIM 기반 실시간 토공량 측정 관리 모델을 연구했습니다. LH 국토개발기술대전 및 엔지니어링 산업 경진대회에서 우수상을 수상했습니다.</p>
+        <span class="date mono">2023.12</span>
+        <div>
+          <h3><span class="ko">BIM 기반 실시간 토공량 측정 관리 모델 (RTMM_3D)</span><span class="en">BIM-Based Real-Time Earthwork Measurement Model (RTMM_3D)</span></h3>
+          <p class="ko">도심지 굴착 붕괴 사고 예방을 위한 BIM 기반 실시간 토공량 측정 관리 모델을 연구했습니다. LH 국토개발기술대전 및 엔지니어링 산업 경진대회에서 우수상을 수상했습니다.</p>
+          <p class="en">Developed a BIM-based real-time earthwork measurement model to prevent urban excavation collapse accidents. Awarded excellence prizes at the LH National Land Development Technology Competition and the Engineering Industry Competition.</p>
+        </div>
       </div>
       <div class="research-item">
-        <span class="date">2021.04 – 2021.08</span>
-        <h3>컴퓨터 비전 기반 건설 근로자 안전 모니터링</h3>
-        <p>스마트인프라연구실 학부 인턴으로 컴퓨터 비전을 활용한 건설 근로자 안전 향상 프로젝트에 참여해 데이터 전처리와 분석을 담당했습니다. 도로 모니터링 및 유지관리 전략 연구에도 참여했습니다.</p>
+        <span class="date mono">2021.04 — 2021.08</span>
+        <div>
+          <h3><span class="ko">컴퓨터 비전 기반 건설 근로자 안전 모니터링</span><span class="en">Computer Vision for Construction Worker Safety</span></h3>
+          <p class="ko">스마트인프라연구실 학부 인턴으로 컴퓨터 비전을 활용한 건설 근로자 안전 향상 프로젝트에 참여해 데이터 전처리와 분석을 담당했습니다. 도로 모니터링 및 유지관리 전략 연구에도 참여했습니다.</p>
+          <p class="en">As an undergraduate intern at the Smart Infrastructure Lab, I contributed data preprocessing and analysis to a project improving construction worker safety with computer vision, and participated in road monitoring and maintenance strategy research.</p>
+        </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="publications">
+  <div class="container reveal">
+    <span class="eyebrow mono"><span class="ko">논문</span><span class="en">Publications</span></span>
+    <h2><span class="ko">앞으로 채워질 페이지</span><span class="en">Coming soon</span></h2>
+    <!-- ✏️ 첫 논문이 나오면 아래 pub-placeholder를 지우고
+         이런 형식으로 항목을 추가하세요:
+    <div class="edu-list">
+      <div class="edu-row">
+        <span class="period mono">2027</span>
+        <div>
+          <h3>논문 제목</h3>
+          <p><strong>Dayeon Kang</strong>, 공저자 이름. 학술지/학회 이름.</p>
+        </div>
+      </div>
+    </div>
+    -->
+    <div class="pub-placeholder">
+      <span class="tag mono">In preparation</span>
+      <p class="ko">석사 연구의 첫 결과물을 준비하고 있습니다. 학회 발표와 논문이 나오는 대로 이곳에 업데이트됩니다.</p>
+      <p class="en">The first results of my M.S. research are in preparation. Conference presentations and papers will be posted here as they come out.</p>
     </div>
   </div>
 </section>
 
 <section id="skills">
-  <div class="container">
-    <h2>기술</h2>
-    <div class="skills">
-      <span class="skill">Python · 데이터 분석</span>
-      <span class="skill">컴퓨터 비전</span>
+  <div class="container reveal">
+    <span class="eyebrow mono"><span class="ko">기술</span><span class="en">Skills</span></span>
+    <h2><span class="ko">다룰 수 있는 것들</span><span class="en">Tools &amp; skills</span></h2>
+    <div class="skills-tags">
+      <span class="skill"><span class="ko">Python · 데이터 분석</span><span class="en">Python · Data Analysis</span></span>
+      <span class="skill"><span class="ko">시계열 딥러닝</span><span class="en">Time-Series Deep Learning</span></span>
+      <span class="skill"><span class="ko">컴퓨터 비전</span><span class="en">Computer Vision</span></span>
       <span class="skill">BIM (Revit, Dynamo)</span>
-      <span class="skill">3D 모델링</span>
-      <span class="skill">MS Office · 한글</span>
-      <span class="skill">영어 (OPIc IH)</span>
+      <span class="skill"><span class="ko">3D 모델링</span><span class="en">3D Modeling</span></span>
+      <span class="skill"><span class="ko">MS Office · 한글</span><span class="en">MS Office · HWP</span></span>
+      <span class="skill"><span class="ko">영어 (OPIc IH)</span><span class="en">English (OPIc IH)</span></span>
     </div>
   </div>
 </section>
 
 <section id="awards">
-  <div class="container">
-    <h2>수상</h2>
-    <div class="awards">
-      <div class="award">
-        <span class="date">2023.12</span>
-        <h3>LH 국토개발기술대전 <span class="prize">우수상</span></h3>
-        <p>BIM 기반 실시간 토공량 측정 관리 모델 개발</p>
-      </div>
-      <div class="award">
-        <span class="date">2023.09</span>
-        <h3>엔지니어링 산업 경진대회 <span class="prize">우수상</span></h3>
-        <p>도심지 굴착 붕괴 사고 해결을 위한 RTMM_3D 연구</p>
+  <div class="container reveal">
+    <div class="color-block block-cream">
+      <span class="eyebrow mono"><span class="ko">수상</span><span class="en">Awards</span></span>
+      <h2><span class="ko">수상 이력</span><span class="en">Honors &amp; awards</span></h2>
+      <div class="awards">
+        <div class="award">
+          <span class="date mono">2023.12</span>
+          <h3><span class="ko">LH 국토개발기술대전</span><span class="en">LH National Land Development Technology Competition</span><span class="prize"><span class="ko">우수상</span><span class="en">Excellence Award</span></span></h3>
+          <p><span class="ko">BIM 기반 실시간 토공량 측정 관리 모델 개발</span><span class="en">BIM-based real-time earthwork measurement and management model</span></p>
+        </div>
+        <div class="award">
+          <span class="date mono">2023.09</span>
+          <h3><span class="ko">엔지니어링 산업 경진대회</span><span class="en">Engineering Industry Competition</span><span class="prize"><span class="ko">우수상</span><span class="en">Excellence Award</span></span></h3>
+          <p><span class="ko">도심지 굴착 붕괴 사고 해결을 위한 RTMM_3D 연구</span><span class="en">RTMM_3D research for preventing urban excavation collapse accidents</span></p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <section id="contact">
-  <div class="container">
-    <h2>연락처</h2>
-    <div class="contact-card">
-      <p>연구 협업이나 궁금한 점이 있다면 편하게 연락 주세요.</p>
-      <a class="btn btn-primary" href="mailto:dayeonk@yonsei.ac.kr">dayeonk@yonsei.ac.kr</a>
+  <div class="container reveal">
+    <div class="color-block block-lime">
+      <div class="contact-inner">
+        <span class="eyebrow mono"><span class="ko">연락처</span><span class="en">Contact</span></span>
+        <h2><span class="ko">함께 이야기해요</span><span class="en">Let's talk</span></h2>
+        <p><span class="ko">연구 협업이나 궁금한 점이 있다면 편하게 연락 주세요.</span><span class="en">Feel free to reach out for research collaboration or any questions.</span></p>
+        <a class="btn btn-on-block" href="mailto:dayeonk@yonsei.ac.kr">dayeonk@yonsei.ac.kr</a>
+      </div>
     </div>
   </div>
 </section>
 
 <footer>
-  <p>© 2026 Dayeon Kang. All rights reserved.</p>
+  <svg class="mountains" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,60 L0,38 L120,14 L260,44 L400,8 L560,40 L700,18 L860,46 L1000,12 L1200,42 L1200,60 Z"></path>
+  </svg>
+  <div class="container">
+    <div class="wordmark">Dayeon Kang</div>
+    <div class="foot-right">
+      <div class="social-row" style="margin-top:0;">
+        <a class="social-btn" href="https://github.com/dayeonkang-diana" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        </a>
+        <a class="social-btn" href="https://www.linkedin.com/in/dayeon-kang-459961302/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+        </a>
+        <a class="social-btn" href="mailto:dayeonk@yonsei.ac.kr" aria-label="이메일">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </a>
+      </div>
+      <p class="fine mono">© 2026 Dayeon Kang — Yonsei University</p>
+    </div>
+  </div>
 </footer>
 
 <script>
 (function () {
+  /* ── 캐러셀 ── */
   var track = document.getElementById('track');
   var dotsWrap = document.getElementById('dots');
   var slides = Array.prototype.slice.call(track.children);
 
-  // 사진 파일이 없을 때 안내 박스로 대체
   slides.forEach(function (img, i) {
     img.addEventListener('error', function () {
       var ph = document.createElement('div');
@@ -370,7 +772,6 @@
     });
   });
 
-  // 점(dot) 생성
   slides.forEach(function (_, i) {
     var dot = document.createElement('button');
     dot.className = 'dot' + (i === 0 ? ' active' : '');
@@ -380,20 +781,108 @@
   });
   var dots = Array.prototype.slice.call(dotsWrap.children);
 
-  function current() {
-    return Math.round(track.scrollLeft / track.clientWidth);
-  }
+  function current() { return Math.round(track.scrollLeft / track.clientWidth); }
   function goTo(i) {
     i = Math.max(0, Math.min(slides.length - 1, i));
     track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
   }
   document.getElementById('prevBtn').addEventListener('click', function () { goTo(current() - 1); });
   document.getElementById('nextBtn').addEventListener('click', function () { goTo(current() + 1); });
-
   track.addEventListener('scroll', function () {
     var i = current();
     dots.forEach(function (d, j) { d.classList.toggle('active', j === i); });
   }, { passive: true });
+
+  /* ── 다크모드 토글 ── */
+  var root = document.documentElement;
+  document.getElementById('themeBtn').addEventListener('click', function () {
+    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  /* ── 한/영 토글 ── */
+  document.getElementById('langBtn').addEventListener('click', function () {
+    var next = root.getAttribute('data-lang') === 'en' ? 'ko' : 'en';
+    root.setAttribute('data-lang', next);
+    root.lang = next;
+    localStorage.setItem('lang', next);
+  });
+
+  /* ── 서울 현재 시각 (KST) ── */
+  var clockEl = document.getElementById('clock');
+  function tick() {
+    clockEl.textContent = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Asia/Seoul', hour: '2-digit', minute: '2-digit', hour12: false
+    }).format(new Date());
+  }
+  tick();
+  setInterval(tick, 10000);
+
+  /* ── 서울 날씨 연출: 맑으면 해, 흐리면 구름, 비·눈이 내림 ── */
+  var sky = document.getElementById('sky');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function skyEl(cls, html) {
+    var d = document.createElement('div');
+    d.className = cls;
+    if (html) d.innerHTML = html;
+    return d;
+  }
+  function addSun() {
+    sky.appendChild(skyEl('sun', '<svg width="88" height="88" viewBox="0 0 88 88"><g stroke="#FFC94D" stroke-width="3.5" stroke-linecap="round"><line x1="44" y1="6" x2="44" y2="18"/><line x1="44" y1="70" x2="44" y2="82"/><line x1="6" y1="44" x2="18" y2="44"/><line x1="70" y1="44" x2="82" y2="44"/><line x1="17" y1="17" x2="25.5" y2="25.5"/><line x1="62.5" y1="62.5" x2="71" y2="71"/><line x1="17" y1="71" x2="25.5" y2="62.5"/><line x1="62.5" y1="25.5" x2="71" y2="17"/></g><circle cx="44" cy="44" r="17" fill="#FFC94D"/></svg>'));
+  }
+  function addCloud(top, left, dur) {
+    var c = skyEl('cloud', '<svg width="130" height="46" viewBox="0 0 130 46"><ellipse cx="40" cy="32" rx="32" ry="13"/><ellipse cx="76" cy="24" rx="36" ry="16"/><ellipse cx="104" cy="33" rx="24" ry="11"/></svg>');
+    c.style.top = top; c.style.left = left;
+    c.style.animationDuration = dur + 's';
+    sky.appendChild(c);
+  }
+  function addDrops(n, snow) {
+    for (var i = 0; i < n; i++) {
+      var d = skyEl(snow ? 'flake' : 'drop');
+      d.style.left = (Math.random() * 100) + '%';
+      d.style.animationDuration = (snow ? 4 + Math.random() * 4 : 0.9 + Math.random() * 0.8) + 's';
+      d.style.animationDelay = (Math.random() * 3) + 's';
+      sky.appendChild(d);
+    }
+  }
+  function renderSky(c) {
+    sky.innerHTML = '';
+    if (c <= 1) { addSun(); }
+    else if (c === 2) { addSun(); addCloud('130px', '76%', 46); }
+    else if (c === 3 || c === 45 || c === 48) { addCloud('100px', '70%', 40); addCloud('150px', '84%', 55); }
+    else if ((c >= 71 && c <= 77) || c === 85 || c === 86) { addCloud('100px', '74%', 44); if (!reduceMotion) addDrops(26, true); }
+    else if (c >= 51) { addCloud('100px', '70%', 40); addCloud('150px', '84%', 55); if (!reduceMotion) addDrops(34, false); }
+  }
+  var wxTries = 0;
+  function loadWeather() {
+    fetch('https://api.open-meteo.com/v1/forecast?latitude=37.5665&longitude=126.978&current=weather_code&timezone=Asia%2FSeoul')
+      .then(function (r) { if (!r.ok) throw new Error('http'); return r.json(); })
+      .then(function (d) {
+        if (d && d.current) { wxTries = 0; renderSky(d.current.weather_code); }
+      })
+      .catch(function () {
+        /* 실패 시 15초 뒤 재시도 (최대 5회) */
+        if (wxTries++ < 5) setTimeout(loadWeather, 15000);
+      });
+  }
+  loadWeather();
+  setInterval(loadWeather, 600000);
+
+  /* ── 스크롤 등장 애니메이션 ── */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('visible'); });
+  }
 })();
 </script>
 
